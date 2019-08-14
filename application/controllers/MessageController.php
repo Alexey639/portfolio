@@ -27,7 +27,7 @@ class MessageController implements IController
 
         $model = new  Message($fc->getDb());
         if(!empty($_POST) && $model->load($_POST) )
-$model->save(true);
+            $view->saved = $model->save(true);
         if (is_numeric($params['id']) && ((int)$params['id']) > 0) {
             $id = $params['id'];
             $view->messages = $model->one($id);
@@ -47,14 +47,14 @@ $model->save(true);
 
         $model = new  Message($fc->getDb());
         if(!empty($_POST) && $model->load($_POST,  true) )
-$model->save(false);
+            $view->saved = $model->save(false);
         if (is_numeric($params['id']) && ((int)$params['id']) > 0) {
             $id = $params['id'];
             $view->messages = $model->one($id);
         }
         $view->schema = $model->describe();
         $view->model = $model;
-        $result = $view->render('../views//messages/edit.php');
+        $result = $view->render('../views//messages/edit.php', 'создать запись');
 
         $fc->setBody($result);
     }

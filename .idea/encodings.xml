@@ -8,6 +8,7 @@
     <file url="file://$PROJECT_DIR$/application/views/index.php" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/application/views/messages/edit.php" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/application/views/messages/index.php" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/application/views/tpl/bootstrap.php" charset="UTF-8" />
     <file url="PROJECT" charset="windows-1251" />
   </component>
 </project>

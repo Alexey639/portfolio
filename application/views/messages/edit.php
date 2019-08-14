@@ -1,4 +1,10 @@
 <form METHOD="post">
+    <?php
+    if ($this->saved)
+        echo '<div class="alert alert-success" role="alert">
+  <strong>запись  сохранена</strong> <a href="/message/index" class="btn btn-success">перейти к  списку</a>
+</div>';
+    ?>
     <table class="table"><?php
 
         $rules = $this->model->rules();

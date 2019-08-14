@@ -12,3 +12,6 @@ foreach ($this->messages as $index => $message) {
 }
 
 ?>
+</table>
+<a href="/message/create" class="btn btn-success">добавить</a>
+    
