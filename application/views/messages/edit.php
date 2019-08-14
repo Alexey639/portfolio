@@ -1,4 +1,4 @@
-<form METHOD="post">
+<form METHOD="post" action="<?= $_SERVER['REQUEST_URI'] ?>">
     <?php
     if ($this->saved)
         echo '<div class="alert alert-success" role="alert">
