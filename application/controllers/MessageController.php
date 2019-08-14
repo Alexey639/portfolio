@@ -58,4 +58,22 @@ class MessageController implements IController
 
         $fc->setBody($result);
     }
+
+    public function deleteAction()
+    {
+        $fc = FrontController::getInstance();
+        //Добавляем
+        $params = $fc->getParams();
+        $view = new View();
+
+        $model = new  Message($fc->getDb());
+
+        if (is_numeric($params['id']) && ((int)$params['id']) > 0) {
+            $id = $params['id'];
+            $view->messages = $model->one($id);
+        }
+        $view->schema = $model->delete($id);
+        $view->model = $model;
+        header('Location:/message/index');
+    }
 }

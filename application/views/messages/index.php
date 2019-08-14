@@ -7,6 +7,7 @@ foreach ($this->messages as $index => $message) {
     '<td>'.$message['email'].'</td>'.
     '<td>'.$message['msage'].'</td>'.
     '<td><a href="/message/edit/id/'.$message['id'].'">править</a></td>'.
+        '<td><a href="/message/delete/id/' . $message['id'] . '" class="text-danger">удалить</a></td>' .
         '</tr>'
     ;
 }

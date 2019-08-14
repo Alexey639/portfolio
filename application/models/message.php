@@ -28,6 +28,13 @@ class Message
         return $list;
     }
 
+    public function delete($id)
+    {
+        $result = $this->db->query('DELETE  FROM messages WHERE id=' . intval($id));
+        $list = $result->fetchAll();
+        return $list;
+    }
+
     public function describe()
     {
         $result = $this->db->query('PRAGMA table_info(messages)');
