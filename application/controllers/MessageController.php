@@ -54,7 +54,10 @@ class MessageController implements IController
         }
         $view->schema = $model->describe();
         $view->model = $model;
-        $result = $view->render('../views//messages/edit.php', 'создать запись');
+        if ($fc->is_ajax)
+            $result = $view->body('../views//messages/edit.php', 'создать запись');
+        else
+            $result = $view->render('../views//messages/edit.php', 'создать запись');
 
         $fc->setBody($result);
     }

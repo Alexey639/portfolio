@@ -14,5 +14,5 @@ foreach ($this->messages as $index => $message) {
 
 ?>
 </table>
-<a href="/message/create" class="btn btn-success" data-target="#modal" data-toggle="modal">добавить</a>
+<a href="/message/create?ajax=true" class="btn btn-success" data-target="#modal" data-toggle="modal">добавить</a>
     

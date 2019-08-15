@@ -9,7 +9,8 @@ class FrontController {
 		return self::$_instance;
 	}
 	private function __construct(){
-		$request = $_SERVER['REQUEST_URI'];
+        $request = parse_url($_SERVER['REQUEST_URI']);
+        $request = $request['path'];
 		$splits = explode('/', trim($request,'/'));
 		//Controller
 		$this->_controller = !empty($splits[0]) ? ucfirst($splits[0]).'Controller' : 'IndexController';
@@ -31,6 +32,7 @@ class FrontController {
 
 		}
 		$this->db =  $this->getDb();
+        $this->is_ajax = $this->is_ajax();
 	}
 
     public  function getDb()
@@ -78,4 +80,9 @@ class FrontController {
 	public function setBody($body) {
 		$this->_body = $body;
 	}
+
+    private function is_ajax()
+    {
+        return (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && !empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest');
+    }
 }	

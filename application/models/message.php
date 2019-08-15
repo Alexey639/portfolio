@@ -49,7 +49,9 @@ class Message
             ['fname', 'text'],
             ['email', 'email'],
             ['msage', 'text'],
-            ['datetime', 'text'],
+            ['datetime', 'text', function ($i) {
+                return time();
+            }],
             ['user_id', 'text'],
         ), 'required' => ['msage'],
             'hidden' => ['id']];
@@ -63,12 +65,16 @@ class Message
             foreach ($rules['required'] as $index => $item) {
                 if ($new && $item[0] == 'id')
                     continue;
-                if (!isset($post[$item]))
+                if (!isset($post[$item])) {
                     $this->error [$item] = ['message' => 'не заполнено поле ' . $item];
+                    continue;
+                }
 
 
             }
         foreach ($rules['all'] as $index => $item) {
+            if (isset($item[2]))
+                $this->clean[$item[0]] = call_user_func_array($item[2], [$post[$item[0]]]);
             if ($new && $item[0] == 'id')
                 continue;
             if (isset($post[$item[0]]))

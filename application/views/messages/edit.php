@@ -1,4 +1,4 @@
-<form METHOD="post" action="<?= $_SERVER['REQUEST_URI'] ?>">
+<form METHOD="post" action="<?= $_SERVER['REQUEST_URI'] ?>" class="<?= (isset($_GET['ajax']) ? 'form-ajax' : '') ?>">
     <?php
     if ($this->saved)
         echo '<div class="alert alert-success" role="alert">
@@ -15,7 +15,7 @@
 
             echo '<tr '.($type=='hidden'?'style="display:none"':'').''.($hasError?'class=error"':'').'>
     <td>' . $field['name'] . '</td>' .
-                '<td><input class="form-control '.($hasError?' is-invalid"':'').'" type="' . $type . '" name="' . $field['name'] . '" value="' . (isset($this->messages) && $this->messages[0] && isset($this->messages[0][$field['name']]) ? $this->messages[0][$field['name']] : '') . '">' .($hasError?'<div class="invalid-feedback">
+                '<td><input class="form-control ' . ($hasError ? ' is-invalid"' : '') . '" type="' . $type . '" name="' . $field['name'] . '" value="' . (($_POST[$field['name']]) ?? (isset($this->messages) && $this->messages[0] && isset($this->messages[0][$field['name']]) ? $this->messages[0][$field['name']] : '')) . '">' . ($hasError ? '<div class="invalid-feedback">
         '.$errors[$field['name']]['message'].'
       </div>':''). '</td>' .
                 '</tr>';
