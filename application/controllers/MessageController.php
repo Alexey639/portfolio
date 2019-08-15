@@ -62,6 +62,29 @@ class MessageController implements IController
         $fc->setBody($result);
     }
 
+    public function viewAction()
+    {
+        $fc = FrontController::getInstance();
+        //Добавляем
+        $params = $fc->getParams();
+        $view = new View();
+
+        $model = new  Message($fc->getDb());
+
+        if (is_numeric($params['id']) && ((int)$params['id']) > 0) {
+            $id = $params['id'];
+            $view->messages = $model->one($id);
+        }
+        $view->schema = $model->describe();
+        $view->model = $model;
+        if ($fc->is_ajax)
+            $result = $view->body('../views//messages/view.php', 'просмотр записи');
+        else
+            $result = $view->render('../views//messages/view.php', 'просмотр записи');
+
+        $fc->setBody($result);
+    }
+
     public function deleteAction()
     {
         $fc = FrontController::getInstance();

@@ -3,9 +3,11 @@
 
 foreach ($this->messages as $index => $message) {
     echo  '<tr>
+
     <td>'.$message['fname'].'</td>'.
     '<td>'.$message['email'].'</td>'.
     '<td>'.$message['msage'].'</td>'.
+        '<td><a href="/message/view/id/' . $message['id'] . '">детально</a></td>' .
     '<td><a href="/message/edit/id/'.$message['id'].'">править</a></td>'.
         '<td><a href="/message/delete/id/' . $message['id'] . '" class="text-danger">удалить</a></td>' .
         '</tr>'

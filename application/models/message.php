@@ -45,14 +45,14 @@ class Message
     public function rules()
     {
         return ['all' => array(
-            ['id', 'int'],
-            ['fname', 'text'],
-            ['email', 'email'],
-            ['msage', 'text'],
-            ['datetime', 'text', function ($i) {
+            // format ['name', 'type', 'label',  'default'],
+            ['id', 'int', 'ID'],
+            ['fname', 'text', 'имя'],
+            ['email', 'email', 'Email'],
+            ['msage', 'text', 'сообщение'],
+            ['datetime', 'text', 'дата  создания', function ($i) {
                 return time();
             }],
-            ['user_id', 'text'],
         ), 'required' => ['msage'],
             'hidden' => ['id']];
 
@@ -73,8 +73,13 @@ class Message
 
             }
         foreach ($rules['all'] as $index => $item) {
-            if (isset($item[2]))
-                $this->clean[$item[0]] = call_user_func_array($item[2], [$post[$item[0]]]);
+
+            //значение по умолчанию
+            if (isset($item[3])) {
+                $this->clean[$item[0]] = call_user_func_array($item[3], [$post[$item[0]]]);
+                continue;
+            }
+            //ид
             if ($new && $item[0] == 'id')
                 continue;
             if (isset($post[$item[0]]))
@@ -119,4 +124,27 @@ class Message
         $result = $this->db->prepare($sql);
         return $result->execute();
     }
+
+    public function format($name, $value, $format = 'd.m.Y H:i:s')
+    {
+        if (($name == 'datetime') && !empty($value))
+            return date($format, (int)$value);
+        else return $value;
+
+    }
+
+    public function labels()
+    {
+        return array_column($this->rules()['all'], 2, 0);
+
+    }
+
+    public function label($name, $value)
+    {
+        $labels = $this->labels();
+        return $labels[$name] ?? $name;
+
+
+    }
+
 }
